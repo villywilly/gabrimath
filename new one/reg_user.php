@@ -1,17 +1,14 @@
 <?php 
 include ("database.php");
 ?>
-
+<link rel="stylesheet" href="style.css">
 
 
     <h2>Register your account</h2>
     <form action="reg_user.php" method="get">
-        <h3>Username</h3>
-        <input type="text" name="username"> <br>
-        <h3>Password</h3>
-        <input type="password" name="password"> <br>
-        <h3>Age</h3>
-        <input type="text" name="age"><br>
+        <input type="text" name="username" placeholder="Username"> <br>====================<br>
+        <input type="password" name="password" placeholder="Password"> <br>====================<br>
+        <input type="text" name="age" placeholder="Your age"><br>====================<br>
         <input type="submit" name="login" value="Register"> <br>
         <a href="login.php">Log in here.</a><br>
     </form>

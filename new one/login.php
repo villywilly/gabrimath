@@ -15,16 +15,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Welcome to GabriMath!</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <h1>Welcome to GabriMath!</h1>
     <h2 id="err"></h2>
     <h2>Please login </h2>
     <form action="login.php" method="post">
-        <h3>Username</h3>
-        <input type="text" name="username"> <br>
-        <h3>Password</h3>
-        <input type="password" name="password"> <br>
+        <input type="text" name="username" placeholder="Username"> <br>====================<br>
+        <input type="password" name="password" placeholder="Password"> <br><br>
         <input type="submit" name="login" value="Login"> | 
 	<input type="submit" name="guest" value="Sign in as guest"> <br>
     </form>

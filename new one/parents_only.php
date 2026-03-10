@@ -18,6 +18,7 @@ $result = $stmt->get_result();
 <head>
 <title>Gabrimath Parent Page</title>
 </head>
+<link rel="stylesheet" href="style.css">
 <body>
 
 <h1>Students</h1>
@@ -57,7 +58,7 @@ if (isset($_GET["getstats"])) {
     $row = $result->fetch_assoc();
 
     if ($row) {
-        echo "<h3>".$selected."'s statistics</h3>";
+        echo "<h3>".$selected."'s statistics:</h3>";
         echo "Division XP: ".$row["xp_div"]."<br>";
         echo "Multiplication XP: ".$row["xp_mult"];
     }

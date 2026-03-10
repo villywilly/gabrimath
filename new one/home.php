@@ -23,7 +23,7 @@ include("database.php");
     <h1 id="welcome">Welcome back!</h1>
     <h2>Welcome to GabriMath! Get ready to practice math!</h2>
     <h3>Recent updates:</h3>
-    <h4>Version 1.0.0</h4>
+    <h4>Version 2.0.0</h4>
     <h3>Multiplication Practice XP now saves! Check it out!</h3>
     
 
