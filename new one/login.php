@@ -71,6 +71,7 @@
                 }
                 echo ("<br>successfully logged in!");
                 $_SESSION["xp"] = $row["xp_mult"];
+                $_SESSION["xpd"] = $row["xp_div"];
                 header("Location: home.php");
             }
             else {

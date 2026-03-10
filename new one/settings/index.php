@@ -1,7 +1,10 @@
 <?php
 session_start();
 require "../database.php";
-
+require "../auth.php";
+if ($_SESSION["username"] == "guest") {
+    header("Location: /disallowed.php?e=guests cannot access this page, please sign in first");
+}
 /* Disable account */
 if (isset($_POST["del-acc"])) {
 

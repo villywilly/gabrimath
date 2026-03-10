@@ -1,12 +1,8 @@
 <?php
 session_start();
-if ($_SESSION["logged_in"] != true ) {
-    header("Location: login.php");
-}
-if($_SESSION["maintnence"] == true && $_SESSION["isAdmin"] == false) {
-    header("Location: busy.html");
-}
+
 include("database.php");
+require "auth.php";
 //echo $_SESSION["username"];
 ?>
 

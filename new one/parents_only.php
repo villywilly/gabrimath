@@ -3,7 +3,7 @@ session_start();
 require "database.php";
 
 if (!isset($_SESSION["isParent"]) || $_SESSION["isParent"] != true) {
-    header("Location: home.php");
+    header("Location: disallowed.php?e=must be a parent to view that page");
     exit;
 }
 

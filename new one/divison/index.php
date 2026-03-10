@@ -1,7 +1,7 @@
 <?php
 session_start();
 require "../database.php";
-
+require "../auth.php";
 $xp = $_SESSION["xpd"] ?? 0;
 if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] != true) {
     header("Location: ../login.php");
