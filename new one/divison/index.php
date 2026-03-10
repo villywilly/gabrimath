@@ -1,60 +1,82 @@
-<?php 
-include("database.php");
+<?php
+session_start();
+require "../database.php";
+
+$xp = $_SESSION["xpd"] ?? 0;
+if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] != true) {
+    header("Location: ../login.php");
+    exit;
+}
+
+$user = $_SESSION["username"];
+$xp = $_SESSION["xpd"];
+
+if (!isset($_SESSION["num1"])) {
+    $_SESSION["num1"] = random_int(100,500);
+    $_SESSION["num2"] = random_int(50,100);
+}
+
+$num1 = $_SESSION["num1"];
+$num2 = $_SESSION["num2"];
+$real_ans = $num1 / $num2;
+$real_ans = round($real_ans);
+if (isset($_GET["submit"])) {
+
+    $ans = $_GET["answer"];
+
+    if ($ans == $real_ans) {
+        $xp += 500-$real_ans;
+    } else {
+        $xp -= $real_ans*100;
+    }
+
+    $_SESSION["xpd"] = $xp;
+
+    $stmt = $conn->prepare(
+        "UPDATE uinf SET xp_mult = ? WHERE username = ?"
+    );
+
+    $stmt->bind_param("is", $xp, $user);
+    $stmt->execute();
+
+    unset($_SESSION["num1"]);
+    unset($_SESSION["num2"]);
+
+    header("Location: index.php");
+    exit;
+}
+
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Division practice!</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Division practice!</title>
 </head>
 <body>
-    <link rel="stylesheet" href="/style.css">
-    <h1>Welcome to GabriMath Division practice!</h1>
-    <h2>Directions:</h2>
-    <h3>When you are ready to solve some math problems, press the "Start!" button. You will be given a long division problem to solve. If you get it right, you gain XP! If you get it wrong, you lose XP.</h3>
-    <h3>Whenever you are ready, just press start to begin!</h3>
-    <br><br>
-    <button id="start" class="btn">Start!</button>
-    <h2>Your XP:</h2>
-    <h2 id="pointsVal">0</h2>
-    <a href="http://192.168.12.160/gabrimath/home.php" class="buttonBlack">Exit</a>
-    <script>
-        let isCorrect;
-        let num1;
-        let num2;
-        let ans;
-        let uAns;
-        let xp = 0;
-        const formData = new FormData();
-        function randint(min,max) {
-            var randomInt = Math.floor(Math.random() * (max - min + 1)) + 1;
-            return randomInt;
-        }
-        function post() {
-            formdata.append("ansRight", "isCorrect");
-            formdata.append("xp","xp");
-            fetch("http://192.168.12.160/gabrimath/divison", {
-                method: "POST",
-                body: formData
-            });
-        }
-        const button = document.getElementById('start');
-        button.addEventListener('click',function() {
-            num1 = randint(100,999);
-            num2 = randint(10,99);
-            ans = Math.floor(num1 / num2);
-            uAns = Math.floor(Number(window.prompt(`Que es ${num1} divided by ${num2}. ROUND TO THE NEAREST WHOLE NUMBER DOWN!!!!!!`)));
-            if (ans === uAns) {
-                xp += 999-ans
-                window.alert(`Correct! You got ${999-ans} XP!`);
-            }
-            else {
-                xp -= ans*20;
-                window.alert(`Sorry! The answer was ${ans}, you lost ${ans*20} XP.`);
-            }
-            document.getElementById('pointsVal').textContent = xp;
-        })
-    </script>
+<link rel="stylesheet" href="../style.css">
+<h1>Welcome to GabriMath Division practice!</h1>
+<h2>Directions:</h2>
+<h3>You are given 2 numbers, you must solve the equation and press submit. If you get it right, good job! more xp for you. If you get it wrong, you lose some XP<br>Note: Round all answers to the nearest whole number.</h3>
+<br><br>
+<h3>What is <?php echo $num1; ?> divided by <?php echo $num2; ?>?</h3>
+<form action="index.php" method="GET">
+<input name="answer">
+<input type="submit" value="Submit" name ="submit">
+</form>
+<h2>Your XP: <?= $xp ?></h2>
+<a href="../home.php" class="buttonBlack">Exit</a>
+<script>
+function randint(min,max) {
+    var randomInt = Math.floor(Math.random() * (max - min + 1)) + min;
+    return randomInt;
+}
+
+</script>
 </body>
 </html>
+<?php
+
+?>
