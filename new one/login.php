@@ -46,7 +46,7 @@
 </script>
 </html>
 <?php
-    $_SESSION["maintnence"] = false; // Toggle true to set maintnance mode
+    $_SESSION["maintnence"] = true; // Toggle true to set maintnance mode
     $_SESSION["isParent"] = false;
     $_SESSION["isAdmin"] = false;
     if (isset($_POST["login"])) {
